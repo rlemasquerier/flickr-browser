@@ -16,7 +16,7 @@ class FlickrImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var title: TextView = view.findViewById(R.id.title)
 }
 
-class FlickrRecycleViewAdapter(private var photoList: List<Photo>) :
+class FlickrRecyclerViewAdapter(private var photoList: List<Photo>) :
     RecyclerView.Adapter<FlickrImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlickrImageViewHolder {
         Log.d(TAG, ".onCreateViewHolder new view requested")
