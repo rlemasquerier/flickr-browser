@@ -55,7 +55,7 @@ class GetRawData(private val listener: OnDownloadComplete) : AsyncTask<String, V
     }
 
     override fun onPostExecute(result: String) {
-        Log.d(TAG, "onPostExecute called, parameter is $result")
+        Log.d(TAG, "onPostExecute called")
         listener.onDownloadComplete(result, downloadStatus)
     }
 }
