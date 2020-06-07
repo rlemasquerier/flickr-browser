@@ -44,13 +44,13 @@ class GetRawData : AsyncTask<String, Void, String>() {
                     "doInBackground: Unknown error: ${error.message}"
                 }
             }
-            Log.d(TAG, errorMessage)
+            Log.e(TAG, errorMessage)
 
             return errorMessage
         }
     }
 
     override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
+        Log.d(TAG, "onPostExecute called, parameter is $result")
     }
 }
