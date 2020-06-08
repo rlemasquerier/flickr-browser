@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,7 +16,8 @@ import kotlinx.android.synthetic.main.content_main.*
 private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete,
-    GetFlickrJsonData.OnDataAvailable {
+    GetFlickrJsonData.OnDataAvailable,
+    RecyclerItemClickListener.OnRecyclerClickListener {
 
     private val flickrRecyclerViewAdapter = FlickrRecyclerViewAdapter(ArrayList())
 
@@ -26,17 +29,28 @@ class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete,
         setSupportActionBar(toolbar)
 
         recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this, recycler_view, this))
         recycler_view.adapter = flickrRecyclerViewAdapter
 
         val url = createUri(
             "https://www.flickr.com/services/feeds/photos_public.gne",
-            "android,oreo",
+            "lake,blue",
             "en-us",
             true
         )
         val getRawData = GetRawData(this)
-        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android&tagmode=any&format=json&nojsoncallback=1")
+        getRawData.execute(url)
         Log.d(TAG, "onCreate ends")
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        Log.d(TAG, ".onItemClick: starts")
+        Toast.makeText(this, "Normal tap at position $position", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemLongClick(view: View, position: Int) {
+        Log.d(TAG, ".onItemLongClick: starts")
+        Toast.makeText(this, "Long tap at position $position", Toast.LENGTH_SHORT).show()
     }
 
     private fun createUri(
